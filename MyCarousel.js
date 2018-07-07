@@ -132,57 +132,6 @@ allItems.push({
 //   }
 // });
 
-// D tips1
-allItems.push({
-  type: "blue",
-  render: isActive => {
-    return (
-      <Spring from={{ opacity: 0 }} to={{ opacity: isActive ? 1 : 0 }}>
-        {styles => (
-          <CardContent style={{ ...styles }}>
-            <View style={{ position: "absolute", bottom: 20, right: 30 }}>
-              <Image
-                style={{ width: 61, height: 99 }}
-                source={require("./assets/light_bubble.png")}
-              />
-            </View>
-            <SectionSet
-              label={"Daily Tips"}
-              textStyle={{ fontSize: 32 }}
-              value={"Why Renting is Better than Buying?"}
-            />
-          </CardContent>
-        )}
-      </Spring>
-    );
-  }
-});
-// D tips2
-allItems.push({
-  type: "lightBlue",
-  render: isActive => {
-    return (
-      <Spring from={{ opacity: 0 }} to={{ opacity: isActive ? 1 : 0 }}>
-        {styles => (
-          <CardContent style={{ ...styles }}>
-            <View style={{ position: "absolute", bottom: 20, right: 30 }}>
-              <Image
-                style={{ width: 61, height: 99 }}
-                source={require("./assets/light_bubble.png")}
-              />
-            </View>
-            <SectionSet
-              label={"Daily Tips"}
-              textStyle={{ fontSize: 32 }}
-              value={"What is Reverse Mortgage?"}
-            />
-          </CardContent>
-        )}
-      </Spring>
-    );
-  }
-});
-
 export class MyCarousel extends Component {
   state = {
     slideIndex: 0

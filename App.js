@@ -62,6 +62,7 @@ const Spacer = styled.View`
 const stepComponents = [];
 stepComponents.push({
   key: "0",
+  word: "How can we help you today?",
   render: styles => {
     return (
       <View
@@ -106,6 +107,8 @@ stepComponents.push({
 
 stepComponents.push({
   key: 2,
+  word:
+    "Hi Eric, the total asset value is 6.3 million Hong Kong dollars. 80% of your asset could be liquidated within 1 week. These are the country risks of your portfolio.",
   render: styles => {
     return (
       <View style={{ ...styles, alignItems: "center", height: 450 }}>
@@ -140,6 +143,8 @@ stepComponents.push({
 
 stepComponents.push({
   key: 4,
+  word:
+    "Hi, Eric. Depends on your risk appetite, the following options can be considered. Fixed Deposit with low risk, Public Utility Equity with medium risk and Equity Basket with high risk.",
   render: styles => {
     return (
       <View style={{ ...styles, alignItems: "center", height: 450 }}>
@@ -175,7 +180,6 @@ stepComponents.push({
 export default class App extends Component {
   state = {
     fontLoaded: false,
-    word: "How can we help you today?",
     talks: [],
     step: 0,
     showControl: true,
@@ -187,20 +191,19 @@ export default class App extends Component {
       "poppins-bold": require("./assets/fonts/Poppins-Bold.ttf")
     });
     this.setState({ fontLoaded: true });
-    this.sayIt();
+    this.sayIt(stepComponents[0].word);
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const isNextWord = prevState.word !== this.state.word;
-    if (isNextWord) {
-      this.sayIt(this.state.word);
-    }
-  }
-  sayIt() {
-    const word = this.state.word;
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   const isNextWord = prevState.word !== this.state.word;
+  //   if (isNextWord) {
+  //     this.sayIt(this.state.word);
+  //   }
+  // }
+  sayIt(word) {
     Speech.speak(word, {
       language: "en",
-      pitch: 1.7,
-      rate: 1.1
+      pitch: 1.5,
+      rate: 1
     });
   }
   handlePress = () => {
@@ -212,19 +215,27 @@ export default class App extends Component {
         // talk
         // setTimeout(this.nextStep, 5000);
         if (this.state.step === 0) {
-          setTimeout(this.nextStep, 100);
+          setTimeout(this.nextStep, 5000);
         } else if (this.state.step === 2) {
-          setTimeout(this.nextStep, 100);
+          setTimeout(this.nextStep, 5000);
         }
       }
     );
   };
   nextStep = () => {
     // TODO: auto repond wording?
-    this.setState(p => ({
-      step: ++p.step,
-      showControl: true
-    }));
+    this.setState(
+      p => ({
+        step: ++p.step,
+        showControl: true
+      }),
+      () => {
+        const word = stepComponents[this.state.step].word;
+        if (word) {
+          this.sayIt(word);
+        }
+      }
+    );
     setTimeout(() => {
       this.scroll.scrollToEnd();
       this.autoNext();
@@ -233,7 +244,11 @@ export default class App extends Component {
   autoNext = () => {
     const shouldNext = [1, 3];
     if (!!~shouldNext.indexOf(this.state.step)) {
-      setTimeout(this.nextStep, 1000);
+      if (this.state.step === 1) {
+        setTimeout(this.nextStep, 1000);
+      } else if (this.state.step === 3) {
+        setTimeout(this.nextStep, 3000);
+      }
     }
   };
   render() {
