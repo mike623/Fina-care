@@ -10,9 +10,3 @@ A smart, beautiful girl who interest to help you understand you property more an
 ## [important] It is [hackathon](http://finhack.io/) project. It still understand develop. Please use it wisely.
 
 <img src="./assets/splash.png" width="100">
-
-## DEMO (Android)
-
-Download APK from the QR code
-
-<img src="./assets/fina.png" width="100">
